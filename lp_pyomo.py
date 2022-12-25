@@ -7,10 +7,10 @@ Created on Sat Dec 24 19:30:18 2022
 
 from pyomo import environ as pe
 from pyomo.environ import * 
+import os
 
 
-
-os.environ['NEOS_EMAIL'] = 'XQUEROLESO@GMAIL.COM'
+os.environ['NEOS_EMAIL'] = 'pppp@GMAIL.COM'
 
 # Creating Pyomo model
 model = pe.ConcreteModel(name="(Maximize Profit)") 
