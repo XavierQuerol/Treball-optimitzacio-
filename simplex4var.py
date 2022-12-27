@@ -13,47 +13,12 @@ import numpy as np
 import scipy
 from scipy import *
 import matplotlib.pyplot as plt
-from scipy.optimize import linprog
+from linear_programming import linear_programming
 
 # Import required functions
 
 #from feasible_graph import *
 
-def linear_programming(x, A, b, E):
-    
-    # x is an array of variables of right hand side of objective function 
-    obj = x
-    
-    # Inequality constarints left hand side
-    lhs_inequality = A
-
-    # Inequality constarints left hand side
-    rhs_inequality =  b
-
-
-    # Bounds
-    bound = E
-
-    # Optimization problem solution
-
-    # Linprog with revised simplex method
-    opt_rs = scipy.optimize.linprog(c=obj, A_ub=lhs_inequality, b_ub=rhs_inequality,
-                                    bounds=bound,
-                                    method="revised simplex")
-
-    
-    # Linprog with simplex method
-    opt_s = scipy.optimize.linprog(c=obj, A_ub=lhs_inequality, b_ub=rhs_inequality,
-                                   bounds=bound,
-                                   method="simplex")
-
-    # Linprog with interior point method
-    opt_ip = scipy.optimize.linprog(c=obj, A_ub=lhs_inequality, b_ub=rhs_inequality,
-                                    bounds=bound,
-                                    method="interior-point")
-
-
-    return opt_rs, opt_s, opt_ip
 
 
 # maximize    z = 5X1 + 5X2 + 3Y + 1.5K
