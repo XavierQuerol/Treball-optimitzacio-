@@ -42,7 +42,7 @@ plt.plot(x1, y,label=r'Inequality 5')
 
 plt.xlim(0,100)
 plt.ylim(0,100)
-plt.legend(bbox_to_anchor=(1.05, 1), loc=2, borderaxespad=0.)
+plt.legend(bbox_to_anchor=(0.5, 0.95), loc=2, borderaxespad=0.)
 plt.xlabel(r'$Neu$')
 plt.ylabel(r'$Figures$')
 

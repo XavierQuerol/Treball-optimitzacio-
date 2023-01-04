@@ -13,7 +13,7 @@ import time
 
 # Example Problem 1 : Solve the following NLP using Scipy minimizer
 
-#  min      Y^2 + K^2
+#  min      4*Y^2 + K^2
 #  s.t.     -2Y -K ≤ -100
 #           -Y -K ≤ -25
 #           -7Y -3K ≤ -60
@@ -26,7 +26,7 @@ import time
 #  var      Y, K
 
 # Write objective objction
-obj = lambda f: 10*f[0]**2 + f[1]**2 
+obj = lambda f: 4*f[0]**2 + f[1]**2
 
 # Provide constraints
 cons = ({'type': 'ineq', 'fun': lambda f: 2*f[0] + f[1] -100.},
@@ -108,8 +108,8 @@ fun_fig = plt.figure()
 # define the objectice function
 objec = lambda f: 4*f[0]**2 + f[1]**2 
 
-f = np.linspace(-1, 1, 30)
-y = np.linspace(-1, 1, 30)
+f = np.linspace(-100, 100, 30)
+y = np.linspace(-100, 100, 30)
 
 
 X, Y = np.meshgrid(f, y)
