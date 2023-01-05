@@ -26,18 +26,15 @@ import time
 #  var      Y, K
 
 # Write objective objction
-obj = lambda f: 4*f[0]**2 + f[1]**2
+obj = lambda f: f[0]**2 +f[1]**2 +2*f[0]*f[1]
 
 # Provide constraints
-cons = ({'type': 'ineq', 'fun': lambda f: 2*f[0] + f[1] -100.},
-        {'type': 'ineq', 'fun': lambda f: f[0] + f[1] - 25.},
-        {'type': 'ineq', 'fun': lambda f: 7*f[0] + 3*f[1] -60.},
-        {'type': 'ineq', 'fun': lambda f: 4*f[0]**2 + f[1]**2 -10.},
-        {'type': 'ineq', 'fun': lambda f: f[0]**2 + f[1]},
+cons = (
+        {'type': 'ineq', 'fun': lambda f: 4*f[0]**2 + f[1]**2 -1000.},
         {'type': 'ineq', 'fun': lambda f: f[1]},
-        {'type': 'ineq', 'fun': lambda f: f[0] - 20.},
-        {'type': 'ineq', 'fun': lambda f: f[1]},
-        {'type': 'ineq', 'fun': lambda f: f[1] -8.}
+        {'type': 'ineq', 'fun': lambda f: f[1] - 20.},
+        {'type': 'ineq', 'fun': lambda f: f[0]},
+        {'type': 'ineq', 'fun': lambda f: f[0] - 8.}
         )
 
 
@@ -106,10 +103,10 @@ import matplotlib.pyplot as plt
 fun_fig = plt.figure()
 
 # define the objectice function
-objec = lambda f: 4*f[0]**2 + f[1]**2 
+objec = lambda f: f[0]**2 + f[1]**2 + 2*f[0]*f[1]
 
-f = np.linspace(-100, 100, 30)
-y = np.linspace(-100, 100, 30)
+f = np.linspace(0, 100, 30)
+y = np.linspace(0, 100, 30)
 
 
 X, Y = np.meshgrid(f, y)
