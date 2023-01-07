@@ -15,7 +15,7 @@ import time
 
 #  min      l1^2 + l2^2(?)
 #  s.t.     -l1^2 - l2^2 + 4800(mida total hipotètica pessebre) ≤ 0
-#           l1 - 2*l2 ≤ 0
+#           2*l2^2 - l1^2 ≤ 0
 #           l1 - 71 ≤ 0
 #           l2 - 43 ≤ 0 
 #           -l1 ≤ 0
@@ -24,13 +24,13 @@ import time
 #  var      l1, l2
 
 # Write objective objction
-obj = lambda f: f[1]**2 #+f[0]**2 #+2*f[0]*f[1]  #l1^2 + l2^2 + 2*l1*l2
+obj = lambda f: f[0]**2 #+ f[1]**2
 
 # Provide constraints
 
 cons = (
         {'type': 'ineq', 'fun': lambda f: f[0]**2 + f[1]**2 -4800.}, 
-        {'type': 'ineq', 'fun': lambda f: -f[0]+2*f[1]}, 
+        {'type': 'ineq', 'fun': lambda f: f[0]**2-2*f[1]**2}, 
         {'type': 'ineq', 'fun': lambda f: f[0]}, 
         {'type': 'ineq', 'fun': lambda f: -f[0] + 71.}, 
         {'type': 'ineq', 'fun': lambda f: f[1]}, 
@@ -102,7 +102,7 @@ import matplotlib.pyplot as plt
 fun_fig = plt.figure()
 
 # define the objectice function
-objec = lambda f: f[0]**2 + f[1]**2 + 2*f[0]*f[1] 
+objec = lambda f: f[0]**2 #+ f[1]**2
 
 f = np.linspace(0, 100, 30)
 y = np.linspace(0, 100, 30)
