@@ -13,30 +13,29 @@ import time
 
 # Example Problem 1 : Solve the following NLP using Scipy minimizer
 
-#  min      4*Y^2 + K^2
-#  s.t.     -2Y -K ≤ -100
-#           -Y -K ≤ -25
-#           -7Y -3K ≤ -60
-#           -4Y^2 - K^2 + 10 ≤ 0
-#           -Y^2 - K ≤ 0
-#           -Y ≤ 0
-#           -Y + 20 ≤ 0
-#           -K ≤ 0
-#           -K + 8 ≤ 0         
-#  var      Y, K
+#  min      l1^2 + l2^2(?)
+#  s.t.     -l1^2 - l2^2 + 4800(mida total hipotètica pessebre) ≤ 0
+#           l1 - 2*l2 ≤ 0
+#           l1 - 71 ≤ 0
+#           l2 - 43 ≤ 0 
+#           -l1 ≤ 0
+#           -l2 ≤ 0
+#                   
+#  var      l1, l2
 
 # Write objective objction
-obj = lambda f: f[0]**2 +f[1]**2 +2*f[0]*f[1]
+obj = lambda f: f[1]**2 #+f[0]**2 #+2*f[0]*f[1]  #l1^2 + l2^2 + 2*l1*l2
 
 # Provide constraints
-cons = (
-        {'type': 'ineq', 'fun': lambda f: 4*f[0]**2 + f[1]**2 -1000.},
-        {'type': 'ineq', 'fun': lambda f: f[1]},
-        {'type': 'ineq', 'fun': lambda f: f[1] - 20.},
-        {'type': 'ineq', 'fun': lambda f: f[0]},
-        {'type': 'ineq', 'fun': lambda f: f[0] - 8.}
-        )
 
+cons = (
+        {'type': 'ineq', 'fun': lambda f: f[0]**2 + f[1]**2 -4800.}, 
+        {'type': 'ineq', 'fun': lambda f: -f[0]+2*f[1]}, 
+        {'type': 'ineq', 'fun': lambda f: f[0]}, 
+        {'type': 'ineq', 'fun': lambda f: -f[0] + 71.}, 
+        {'type': 'ineq', 'fun': lambda f: f[1]}, 
+        {'type': 'ineq', 'fun': lambda f: -f[1] + 66.}
+        )
 
 # Define bounds
 bnds = ((None, None), (None, None))
@@ -66,7 +65,7 @@ print(result)
 print("optimal value p*", result.fun)
 
 # print the value of decision variable
-print("optimal variables: x1 = ", result.x[0], " x2 = ", result.x[1])
+print("optimal variables: l1 = ", result.x[0], " l2 = ", result.x[1])
 
 # print the time execution time
 print("exec time (ms): ", end_time - start_time)
@@ -87,7 +86,7 @@ end_time = time.time()*1000
 
 print('\n',result2)
 print("Jacobian: optimal value p*", result2.fun)
-print("Jacobian: optimal variables: Y = ", result2.x[0], " K = ", result2.x[1])
+print("Jacobian: optimal variables: l1 = ", result2.x[0], " l2 = ", result2.x[1])
 print("exec time (ms): ", end_time - start_time)
 
 
@@ -103,7 +102,7 @@ import matplotlib.pyplot as plt
 fun_fig = plt.figure()
 
 # define the objectice function
-objec = lambda f: f[0]**2 + f[1]**2 + 2*f[0]*f[1]
+objec = lambda f: f[0]**2 + f[1]**2 + 2*f[0]*f[1] 
 
 f = np.linspace(0, 100, 30)
 y = np.linspace(0, 100, 30)
@@ -120,9 +119,11 @@ fig = plt.axes(projection='3d')
 fig.plot_surface(X, Y, Z, rstride=1, cstride=1,
                 cmap='viridis', edgecolor='none', alpha=.8)
 
+plt.plot(result2.x[0], result2.x[1], result2.fun, marker="x", markersize=10, markeredgecolor="black", markerfacecolor="black")
+
 # ax.scatter(1, 1, color='black') # scatter plot
 
-# 
+#
 fig.contour3D(X, Y, Z, 50, cmap='binary')
 
 # Graph labels
