@@ -13,37 +13,41 @@ import time
 
 # Example Problem 1 : Solve the following NLP using Scipy minimizer
 
-#  min      l1^2 + l2^2(?)
-#  s.t.     -l1^2 - l2^2 + 4800(mida total hipotètica pessebre) ≤ 0
-#           2*l2^2 - l1^2 ≤ 0
-#           l1 - 71 ≤ 0
-#           l2 - 43 ≤ 0 
-#           -l1 ≤ 0
-#           -l2 ≤ 0
+#  min      -l1*l2
+#  s.t.     l1*l2 - 4800(superfície minima pessebre) ≤ 0
+#           l1-1.5*l2 ≤ 0 (si volem que sigui rectangular)
+#           -2*l1 + 177 ≤ 0
+#           -2*l2 + 182 ≤ 0
+#           l1 ≤ 0
+#           l2 ≤ 0
 #                   
 #  var      l1, l2
 
 # Write objective objction
-obj = lambda f: f[0]**2 #+ f[1]**2
+obj = lambda f: -f[0]*f[1]
 
 # Provide constraints
 
 cons = (
-        {'type': 'ineq', 'fun': lambda f: f[0]**2 + f[1]**2 -4800.}, 
-        {'type': 'ineq', 'fun': lambda f: f[0]**2-2*f[1]**2}, 
+        {'type': 'ineq', 'fun': lambda f: f[0]*f[1] - 4800.}, 
+        {'type': 'ineq', 'fun': lambda f: f[0]-1.4*f[1]}, 
         {'type': 'ineq', 'fun': lambda f: f[0]}, 
-        {'type': 'ineq', 'fun': lambda f: -f[0] + 71.}, 
+        {'type': 'ineq', 'fun': lambda f: -2*f[0] + 177.}, 
         {'type': 'ineq', 'fun': lambda f: f[1]}, 
-        {'type': 'ineq', 'fun': lambda f: -f[1] + 66.}
+        {'type': 'ineq', 'fun': lambda f: -2*f[1] + 182.}
         )
 
+
 # Define bounds
-bnds = ((None, None), (None, None))
-bnds = ((None, None), )*2
+bnds = None
+
+#bnds = ((None, None), (None, None))
+#bnds = ((None, None), )*2
 
 # initial guess
 x0 = (10,10) # feasible initian point
-# x0 = (0,0) # non-feasible initian point
+
+#x0 = (0,0) # non-feasible initian point
 
 # Method SLSQP uses Sequential Least SQuaresult Programming to minimize a objction 
 # of several variables with any combination of bounds, equality and inequality constraints. 
@@ -102,7 +106,7 @@ import matplotlib.pyplot as plt
 fun_fig = plt.figure()
 
 # define the objectice function
-objec = lambda f: f[0]**2 #+ f[1]**2
+objec = lambda f: -f[0]*f[1]
 
 f = np.linspace(0, 100, 30)
 y = np.linspace(0, 100, 30)
