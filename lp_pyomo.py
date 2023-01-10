@@ -8,7 +8,7 @@ Created on Sat Dec 24 19:30:18 2022
 from pyomo import environ as pe
 from pyomo.environ import * 
 import os
-
+import time
 
 os.environ['NEOS_EMAIL'] = 'pppp@GMAIL.COM'
 
@@ -27,19 +27,28 @@ model.constraints.add(35*model.X1 + 0*model.X2 + 2*model.Y + 1*model.K <= 100); 
 model.constraints.add(5*model.X1 + 5*model.X2 + 1*model.Y + 1*model.K <= 25); # constraint-2 
 model.constraints.add(10*model.X1 + 10*model.X2 + 7*model.Y + 3*model.K <= 60); # constraint-3
 
-solver_manager = pe.SolverManagerFactory('neos')
 
+solver_manager = pe.SolverManagerFactory('neos')
+times = []
+time_ = time.time()
 results = solver_manager.solve(model, solver = "minto")
 print(results)
+times.append(time.time()- time_)
 
+time_ = time.time()
 results = solver_manager.solve(model, solver = "minos")
 print(results)
+times.append(time.time()- time_)
 
+time_ = time.time()
 results = solver_manager.solve(model, solver = "cbc")
 print(results)
+times.append(time.time()- time_)
 
+time_ = time.time()
 results = solver_manager.solve(model, solver = "mosek")
 print(results)
+times.append(time.time()- time_)
 
 print('X1 =', model.X1.value)
 print('X2 =', model.X2.value)
@@ -59,3 +68,5 @@ model.write();
 model.display()
 
 model.write();
+
+print(time_)

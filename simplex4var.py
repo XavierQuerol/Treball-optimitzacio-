@@ -73,7 +73,7 @@ bounds = [(0, 5),   # Bounds of X1
 
 
 # Find the solution for the optimization problem
-opt_revised_simplex, opt_simplex, opt_interior_point = linear_programming(objective_func, ineq_constraints_lhs, 
+opt_revised_simplex, opt_simplex, opt_interior_point, t1_, t2, t3_ = linear_programming(objective_func, ineq_constraints_lhs, 
                                                        ineq_constraints_rhs,
                                                        bounds)
 
@@ -82,3 +82,5 @@ print(opt_revised_simplex)
 print(opt_simplex)
 
 print(opt_interior_point)
+
+print(t1_, t3_, t3_)
